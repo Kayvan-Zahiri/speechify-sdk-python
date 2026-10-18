@@ -128,6 +128,14 @@ The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired
 <dl>
 <dd>
 
+**pronunciations:** `typing.Optional[Pronunciations]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **safety_identifier:** `typing.Optional[SafetyIdentifier]` — Optional. A stable, opaque identifier for the end user this request is made for: a hash of your own user id or an opaque id, never an email address or other personal data. It is recorded with the request even under zero data retention, and your workspace can be given per-end-user limits and a block list keyed on it. See https://docs.speechify.ai/build/guides/concepts/safety-identifiers.
     
 </dd>

@@ -17,6 +17,11 @@ if typing.TYPE_CHECKING:
     from .input_flush_type import InputFlushType
     from .input_text import InputText
     from .input_text_type import InputTextType
+    from .session_pronunciations import SessionPronunciations
+    from .session_pronunciations_pronunciations_item import SessionPronunciationsPronunciationsItem
+    from .session_pronunciations_pronunciations_item_alias import SessionPronunciationsPronunciationsItemAlias
+    from .session_pronunciations_pronunciations_item_ipa import SessionPronunciationsPronunciationsItemIpa
+    from .session_pronunciations_type import SessionPronunciationsType
     from .speech_chunk import SpeechChunk
     from .speech_chunk_speech_marks_item import SpeechChunkSpeechMarksItem
     from .speech_chunk_type import SpeechChunkType
@@ -43,6 +48,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InputFlushType": ".input_flush_type",
     "InputText": ".input_text",
     "InputTextType": ".input_text_type",
+    "SessionPronunciations": ".session_pronunciations",
+    "SessionPronunciationsPronunciationsItem": ".session_pronunciations_pronunciations_item",
+    "SessionPronunciationsPronunciationsItemAlias": ".session_pronunciations_pronunciations_item_alias",
+    "SessionPronunciationsPronunciationsItemIpa": ".session_pronunciations_pronunciations_item_ipa",
+    "SessionPronunciationsType": ".session_pronunciations_type",
     "SpeechChunk": ".speech_chunk",
     "SpeechChunkSpeechMarksItem": ".speech_chunk_speech_marks_item",
     "SpeechChunkType": ".speech_chunk_type",
@@ -93,6 +103,11 @@ __all__ = [
     "InputFlushType",
     "InputText",
     "InputTextType",
+    "SessionPronunciations",
+    "SessionPronunciationsPronunciationsItem",
+    "SessionPronunciationsPronunciationsItemAlias",
+    "SessionPronunciationsPronunciationsItemIpa",
+    "SessionPronunciationsType",
     "SpeechChunk",
     "SpeechChunkSpeechMarksItem",
     "SpeechChunkType",

@@ -44,6 +44,13 @@ if typing.TYPE_CHECKING:
     from .project_monthly_budget_status import ProjectMonthlyBudgetStatus
     from .project_restore import ProjectRestore
     from .project_still_revoked_counts import ProjectStillRevokedCounts
+    from .pronunciation import Pronunciation
+    from .pronunciation_alias import PronunciationAlias
+    from .pronunciation_case_sensitive import PronunciationCaseSensitive
+    from .pronunciation_ipa import PronunciationIpa
+    from .pronunciation_ipa_text import PronunciationIpaText
+    from .pronunciation_text import PronunciationText
+    from .pronunciations import Pronunciations
     from .safety_identifier import SafetyIdentifier
     from .speech_chunk_event import SpeechChunkEvent
     from .speech_done_event import SpeechDoneEvent
@@ -99,6 +106,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProjectMonthlyBudgetStatus": ".project_monthly_budget_status",
     "ProjectRestore": ".project_restore",
     "ProjectStillRevokedCounts": ".project_still_revoked_counts",
+    "Pronunciation": ".pronunciation",
+    "PronunciationAlias": ".pronunciation_alias",
+    "PronunciationCaseSensitive": ".pronunciation_case_sensitive",
+    "PronunciationIpa": ".pronunciation_ipa",
+    "PronunciationIpaText": ".pronunciation_ipa_text",
+    "PronunciationText": ".pronunciation_text",
+    "Pronunciations": ".pronunciations",
     "SafetyIdentifier": ".safety_identifier",
     "SpeechChunkEvent": ".speech_chunk_event",
     "SpeechDoneEvent": ".speech_done_event",
@@ -176,6 +190,13 @@ __all__ = [
     "ProjectMonthlyBudgetStatus",
     "ProjectRestore",
     "ProjectStillRevokedCounts",
+    "Pronunciation",
+    "PronunciationAlias",
+    "PronunciationCaseSensitive",
+    "PronunciationIpa",
+    "PronunciationIpaText",
+    "PronunciationText",
+    "Pronunciations",
     "SafetyIdentifier",
     "SpeechChunkEvent",
     "SpeechDoneEvent",
