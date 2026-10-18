@@ -65,7 +65,7 @@ client.audio.speech(
 Plain text or SSML to be synthesized to speech.
 Up to 2,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 20,000 characters.
 Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
     
 </dd>
 </dl>
@@ -102,9 +102,9 @@ Please refer to the list of the supported languages and recommendations regardin
 
 **model:** `typing.Optional[GetSpeechRequestModel]` 
 
-Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
     
 </dd>
 </dl>
@@ -276,8 +276,8 @@ delivery detail and carries no meaning. Times stay correct for every
 duration.
 
 Every model this route accepts produces speech marks here. The default
-`simba-3.0` and `simba-3.2` stream marks word by word alongside the
-audio. The legacy `simba-english` and `simba-multilingual` models,
+`simba-3.0`, `simba-3.2` and `simba-3.5` stream marks word by word
+alongside the audio. The legacy `simba-english` and `simba-multilingual` models,
 still selectable on a workspace pinned before API version `2026-09-21`,
 synthesize a sentence at a time, so their marks arrive a sentence at a
 time with that sentence's audio; from that version on they return 400
@@ -611,7 +611,7 @@ Create a cloned voice for the workspace from a 10-30 second audio sample, with v
 
 Cloning requires proof that the speaker agreed to it. Create a consent challenge with `POST /v1/voices/consent-challenges`, show the returned `phrase` to the speaker, record them reading it aloud, and send that recording here as `consent_recording` together with the challenge's `consent_challenge_id`. Speechify transcribes the recording, checks it against the phrase it issued, checks that its speaker is the speaker in your `sample`, and keeps it as the consent record for the voice. The person consenting therefore has to be the person being cloned. A challenge is single use and short-lived, so record and submit in one sitting.
 
-The clone belongs to the workspace rather than the member who created it, and access follows the caller's workspace role and API-key scopes exactly as for any other voice: voices scopes to list it, audio scopes to synthesize with it, and the content-management permission plus a write scope on the key to delete it. Cloned voices are usable self-serve on `simba-3.0` (and, on a workspace pinned before API version `2026-09-21`, on the retired `simba-english` and `simba-multilingual`, which from 2026-11-21 are served by our current models and still take cloned voices). `simba-3.2` also serves cloned voices.
+The clone belongs to the workspace rather than the member who created it, and access follows the caller's workspace role and API-key scopes exactly as for any other voice: voices scopes to list it, audio scopes to synthesize with it, and the content-management permission plus a write scope on the key to delete it. Cloned voices are usable self-serve on `simba-3.0` (and, on a workspace pinned before API version `2026-09-21`, on the retired `simba-english` and `simba-multilingual`, which from 2026-11-21 are served by our current models and still take cloned voices). `simba-3.2` and `simba-3.5` also serve cloned voices.
 
 The previous flow, a `consent` form field carrying the speaker's name and email as a JSON string, was switched off on 2026-09-23 for every API version: a create that sends `consent` and no `consent_challenge_id` returns 400 `consent_verification_required`.
 

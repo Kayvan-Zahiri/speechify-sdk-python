@@ -72,7 +72,7 @@ class RawAudioClient:
             Plain text or SSML to be synthesized to speech.
             Up to 2,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 20,000 characters.
             Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
 
         voice_id : str
             Id of the voice to be used for synthesizing speech. Refer to /v1/voices endpoint for available voices
@@ -85,9 +85,9 @@ class RawAudioClient:
             Please refer to the list of the supported languages and recommendations regarding this parameter: https://docs.speechify.ai/docs/language-support.
 
         model : typing.Optional[GetSpeechRequestModel]
-            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
 
         options : typing.Optional[GetSpeechOptionsRequest]
 
@@ -285,7 +285,7 @@ class RawAudioClient:
             Plain text or SSML to be synthesized to speech.
             Up to 20,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 32,000 characters.
             Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
 
         voice_id : str
             Id of the voice to be used for synthesizing speech. Refer to /v1/voices endpoint for available voices
@@ -304,9 +304,9 @@ class RawAudioClient:
             Please refer to the list of the supported languages and recommendations regarding this parameter: https://docs.speechify.ai/docs/language-support.
 
         model : typing.Optional[GetStreamRequestModel]
-            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
 
         options : typing.Optional[GetStreamOptionsRequest]
 
@@ -523,8 +523,8 @@ class RawAudioClient:
         duration.
 
         Every model this route accepts produces speech marks here. The default
-        `simba-3.0` and `simba-3.2` stream marks word by word alongside the
-        audio. The legacy `simba-english` and `simba-multilingual` models,
+        `simba-3.0`, `simba-3.2` and `simba-3.5` stream marks word by word
+        alongside the audio. The legacy `simba-english` and `simba-multilingual` models,
         still selectable on a workspace pinned before API version `2026-09-21`,
         synthesize a sentence at a time, so their marks arrive a sentence at a
         time with that sentence's audio; from that version on they return 400
@@ -539,7 +539,7 @@ class RawAudioClient:
             Plain text or SSML to be synthesized to speech.
             Up to 20,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 32,000 characters.
             Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
 
         voice_id : str
             Id of the voice to be used for synthesizing speech. Refer to /v1/voices endpoint for available voices
@@ -555,9 +555,9 @@ class RawAudioClient:
             Please refer to the list of the supported languages and recommendations regarding this parameter: https://docs.speechify.ai/docs/language-support.
 
         model : typing.Optional[GetStreamRequestModel]
-            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
 
         options : typing.Optional[GetStreamOptionsRequest]
 
@@ -796,7 +796,7 @@ class AsyncRawAudioClient:
             Plain text or SSML to be synthesized to speech.
             Up to 2,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 20,000 characters.
             Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
 
         voice_id : str
             Id of the voice to be used for synthesizing speech. Refer to /v1/voices endpoint for available voices
@@ -809,9 +809,9 @@ class AsyncRawAudioClient:
             Please refer to the list of the supported languages and recommendations regarding this parameter: https://docs.speechify.ai/docs/language-support.
 
         model : typing.Optional[GetSpeechRequestModel]
-            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
 
         options : typing.Optional[GetSpeechOptionsRequest]
 
@@ -1009,7 +1009,7 @@ class AsyncRawAudioClient:
             Plain text or SSML to be synthesized to speech.
             Up to 20,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 32,000 characters.
             Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
 
         voice_id : str
             Id of the voice to be used for synthesizing speech. Refer to /v1/voices endpoint for available voices
@@ -1028,9 +1028,9 @@ class AsyncRawAudioClient:
             Please refer to the list of the supported languages and recommendations regarding this parameter: https://docs.speechify.ai/docs/language-support.
 
         model : typing.Optional[GetStreamRequestModel]
-            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
 
         options : typing.Optional[GetStreamOptionsRequest]
 
@@ -1248,8 +1248,8 @@ class AsyncRawAudioClient:
         duration.
 
         Every model this route accepts produces speech marks here. The default
-        `simba-3.0` and `simba-3.2` stream marks word by word alongside the
-        audio. The legacy `simba-english` and `simba-multilingual` models,
+        `simba-3.0`, `simba-3.2` and `simba-3.5` stream marks word by word
+        alongside the audio. The legacy `simba-english` and `simba-multilingual` models,
         still selectable on a workspace pinned before API version `2026-09-21`,
         synthesize a sentence at a time, so their marks arrive a sentence at a
         time with that sentence's audio; from that version on they return 400
@@ -1264,7 +1264,7 @@ class AsyncRawAudioClient:
             Plain text or SSML to be synthesized to speech.
             Up to 20,000 characters of spoken text, the characters the request is billed for: SSML tags do not count. The input as sent, markup included, may be up to 32,000 characters.
             Refer to https://docs.speechify.ai/docs/api-limits for the input size limits.
-            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.2` and `simba-3.0` accept those tags without applying them.
+            SSML sets pauses (`<break>`), speaking rate (`<prosody rate>`) and pronunciation (`<sub alias>`): see https://docs.speechify.ai/build/guides/text-to-speech/ssml for each tag. Emotion styles, pitch, volume and emphasis are applied only by the Simba 1.6 models, until 2026-11-21; `simba-3.0`, `simba-3.2` and `simba-3.5` accept those tags without applying them.
 
         voice_id : str
             Id of the voice to be used for synthesizing speech. Refer to /v1/voices endpoint for available voices
@@ -1280,9 +1280,9 @@ class AsyncRawAudioClient:
             Please refer to the list of the supported languages and recommendations regarding this parameter: https://docs.speechify.ai/docs/language-support.
 
         model : typing.Optional[GetStreamRequestModel]
-            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity, and the recommended Simba 3 model; it is English only, so a non-English voice returns 400.
+            Model used for audio synthesis. Defaults to `simba-3.0`, which is streaming-native and multilingual: it officially supports English plus `de-DE`, `es-ES`, `es-MX`, `fr-FR`, `it-IT` and `pt-BR`, and routes each request to its English or its multilingual training based on `language` (falling back to the voice's locale when `language` is omitted). `simba-3.2` is the streaming-native model with the lowest TTFB and richest expressivity; it is English only, so a non-English voice returns 400. `simba-3.5` is the recommended model: streaming-native, covering 48 languages under one id, English included, routed by `language` like `simba-3.0`; every voice works on it, cloned voices included.
 
-            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English) or `simba-3.0` before then; call GET /v1/audio/models to see the set your workspace can select today.
+            The legacy Simba 1.6 models `simba-english` and `simba-multilingual` are retired from API version `2026-09-21`: naming one returns 400 `model_retired`. Pinning your API version to a date before `2026-09-21` keeps them on their Simba 1.6 training until **2026-11-21**; from then both ids are served by our current models on every API version that can still name them. Migrate to `simba-3.2` (English), `simba-3.0` or `simba-3.5` before then; call GET /v1/audio/models to see the set your workspace can select today.
 
         options : typing.Optional[GetStreamOptionsRequest]
 

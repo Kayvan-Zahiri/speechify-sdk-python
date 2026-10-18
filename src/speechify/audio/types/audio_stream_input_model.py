@@ -2,4 +2,4 @@
 
 import typing
 
-AudioStreamInputModel = typing.Union[typing.Literal["simba-3.0", "simba-3.2"], typing.Any]
+AudioStreamInputModel = typing.Union[typing.Literal["simba-3.0", "simba-3.2", "simba-3.5"], typing.Any]
